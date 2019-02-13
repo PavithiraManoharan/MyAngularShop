@@ -1,0 +1,18 @@
+<div class="image">
+  <img [src]="produkt.bild">
+</div>
+<div class="content">
+  <div class="header">{{ produkt.name}}</div>
+  <div class="meta">
+    <p class="group">{{ produkt.description }}</p>
+  </div>
+  <div class="description">Price: {{ produkt.price}} €</div>
+  <div class="description" [ngSwitch]="produkt.clicks">
+    <span *ngSwitchCase="0"></span>
+    <span *ngSwitchCase="1">Visited by 1 person</span>
+    <span *ngSwitchDefault>Visited by {{ produkt.clicks }} people</span>
+  </div>
+</div>
+<div class="extra content">
+  <a class="right floated created">Mehr Info</a>
+</div>
