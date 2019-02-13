@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ProduktDetailsComponent } from './produkt-details/produkt-details.component';
@@ -7,7 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'produktliste',
+    component: HomeComponent,
     pathMatch: 'full'
   },
   {

@@ -11,6 +11,7 @@ import { ProduktListeComponent } from './produkt-liste/produkt-liste.component';
 import { ProduktDetailsComponent } from './produkt-details/produkt-details.component';
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     ProduktListeComponent,
     ProduktDetailsComponent,
     HeaderComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
