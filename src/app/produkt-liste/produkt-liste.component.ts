@@ -8,14 +8,11 @@ import { Produkt } from '../shared/produkt';
   templateUrl: './produkt-liste.component.html'
 })
 export class ProduktListeComponent implements OnInit {
-
   produkte: Produkt[];
 
-  constructor(private ps: ProduktService) {
-  }
+  constructor(private ps: ProduktService) {}
 
   ngOnInit() {
-    this.produkte = this.ps.getAll();
+    this.ps.getAll().subscribe(res => this.produkte = res);
   }
-
 }

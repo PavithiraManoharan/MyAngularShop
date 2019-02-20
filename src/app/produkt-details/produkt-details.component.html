@@ -4,17 +4,17 @@
         <div class="items">
           <div class="item" *ngIf="produkt">
             <div class="image">
-              <img [src]="produkt.bild" style="max-width: 250px">
+              <img [src]="produkt?.bild" style="max-width: 250px">
             </div>
           </div>
         </div>
     </div>
     <div class="six wide column">
       <div class="item">
-        <h2>{{ produkt.name }}</h2>
-        <div class="meta">{{ produkt.description }}</div>
+        <h2>{{ produkt?.name }}</h2>
+        <div class="meta">{{ produkt?.description }}</div>
         <div class="description">
-          Our Price: {{ produkt.price }} €
+          Our Price: {{ produkt?.price }} €
         </div>
       </div>
     </div>

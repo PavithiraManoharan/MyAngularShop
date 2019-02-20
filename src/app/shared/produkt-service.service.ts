@@ -1,26 +1,43 @@
 import { Produkt } from './produkt';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { retry, map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { ProduktRaw } from './produkt-raw';
+import { ProduktFactory } from './produkt-factory';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProduktService {
-  produkte: Produkt[];
-  constructor() {
-    this.produkte = [
-      new Produkt('1', 'Staubsauger', 'Unser Top Staubsauger 2018', 100, 'assets/images/staubsauger.jpg', 99, 0),
-      new Produkt('2', 'Heimwerker Bohrmaschine', 'Unsere  2017', 100, 'assets/images/bohrer2.jpg', 99, 0),
-      new Produkt('3', 'Absolut 2019', 'Staubsauger 2017', 100, 'assets/images/staubsauger.jpg', 99, 0),
-      new Produkt('4', 'Bohrmaschine', 'Unsere Top Bohrmaschine 2018', 100, 'assets/images/bohrmaschine.jpg', 99, 0),
-      new Produkt('5', 'Autoreifen', 'Autoreifen', 100, 'assets/images/reifen.png', 99, 0),
-    ];
+  private api = 'http://localhost:3000';
+  private headers: Headers = new Headers();
+
+  constructor(private http: HttpClient) { }
+
+  getAll(): Observable<Array<Produkt>> {
+    return this.http
+      .get<ProduktRaw[]>(`${this.api}/produktliste`)
+      .pipe(
+        retry(3),
+        map(rawProdukte => rawProdukte
+          .map(rawProdukt => ProduktFactory.fromObject(rawProdukt)),
+        ),
+        catchError(this.errorHandler)
+      );
   }
 
-  getAll() {
-    return this.produkte;
+  getOne(id: string): Observable<Produkt> {
+    return this.http
+      .get<ProduktRaw>(`${this.api}/produktliste/${id}`)
+      .pipe(
+        retry(3),
+        map(rawBook => ProduktFactory.fromObject(rawBook)),
+        catchError(this.errorHandler)
+      );
   }
 
-  getOne(id: string) {
-    return this.produkte.find(produkt => produkt.id === id);
+  private errorHandler(error: Error | any): Observable<any> {
+    return throwError(error);
   }
 }
